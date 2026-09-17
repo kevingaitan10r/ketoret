@@ -1,5 +1,4 @@
 import { PRODUCTS } from '../data/products.js';
-import { sensoryAudio } from '../three/sound.js';
 import confetti from 'canvas-confetti';
 
 class CartManager {
@@ -63,7 +62,6 @@ class CartManager {
       this.items.push({ product, quantity: qty });
     }
 
-    sensoryAudio.playSuccess();
     this.saveCart();
   }
 
@@ -75,13 +73,11 @@ class CartManager {
     if (item.quantity <= 0) {
       this.items = this.items.filter(i => i.product.id !== productId);
     }
-    sensoryAudio.playChime(700);
     this.saveCart();
   }
 
   removeItem(productId) {
     this.items = this.items.filter(i => i.product.id !== productId);
-    sensoryAudio.playChime(500);
     this.saveCart();
   }
 

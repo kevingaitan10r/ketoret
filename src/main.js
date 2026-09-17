@@ -1,4 +1,3 @@
-import { sensoryAudio } from './three/sound.js';
 import confetti from 'canvas-confetti';
 
 // Global Cart State
@@ -18,19 +17,6 @@ window.cart = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Sound Toggle in Header
-  const soundBtn = document.getElementById('btn-sound-toggle');
-  const soundIcon = document.getElementById('sound-icon');
-  if (soundBtn) {
-    soundBtn.addEventListener('click', () => {
-      const isMuted = sensoryAudio.toggleMute();
-      soundIcon.textContent = isMuted ? 'volume_off' : 'volume_up';
-      if (!isMuted) {
-        sensoryAudio.playChime(880);
-      }
-    });
-  }
-
   // Render cart initially
   renderCart();
 });
@@ -53,7 +39,6 @@ window.openModal = function(id) {
     backdrop.classList.add('opacity-100', 'pointer-events-auto');
     modal.classList.remove('opacity-0', 'pointer-events-none');
     modal.classList.add('opacity-100', 'pointer-events-auto');
-    sensoryAudio.playChime(700);
   }
 };
 
@@ -130,7 +115,6 @@ window.filterCatalog = function(category) {
   if (prodSection) {
     prodSection.scrollIntoView({ behavior: 'smooth' });
   }
-  sensoryAudio.playChime(600);
 };
 
 // Auth Tab Switch
@@ -189,7 +173,6 @@ window.toggleCart = function() {
     drawer.classList.remove('translate-x-full');
     backdrop.classList.add('opacity-100', 'pointer-events-auto');
     backdrop.classList.remove('opacity-0', 'pointer-events-none');
-    sensoryAudio.playChime(750);
   }
 };
 
@@ -202,7 +185,6 @@ window.addToCart = function(name, price, img) {
   }
   renderCart();
   window.showToast(`¡${name} agregado al carrito!`);
-  sensoryAudio.playSuccess();
 
   // Confetti burst
   try {
@@ -225,7 +207,6 @@ window.changeQty = function(name, delta) {
       window.cart = window.cart.filter(i => i.name !== name);
     }
     renderCart();
-    sensoryAudio.playChime(680);
   }
 };
 
