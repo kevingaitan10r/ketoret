@@ -19,11 +19,54 @@ window.cart = [
 document.addEventListener('DOMContentLoaded', () => {
   // Render cart initially
   renderCart();
+
+  // Initialize Theme from query param or localStorage
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramTheme = urlParams.get('theme');
+  const savedTheme = paramTheme || localStorage.getItem('ketoret_theme');
+  if (savedTheme === 'ivory') {
+    document.body.classList.add('theme-ivory');
+    const icon = document.getElementById('theme-icon');
+    const label = document.getElementById('theme-label');
+    if (icon) {
+      icon.textContent = 'dark_mode';
+      icon.classList.remove('text-[#e2bd82]');
+      icon.classList.add('text-[#0E1628]');
+    }
+    if (label) label.textContent = 'AZUL';
+  }
 });
 
 // ==========================================
 // GLOBAL WINDOW FUNCTIONS FOR HTML ACTIONS
 // ==========================================
+
+// Theme Switcher (Azul Medianoche / Marfil Cálido)
+window.toggleTheme = function() {
+  const isIvory = document.body.classList.toggle('theme-ivory');
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+  
+  if (isIvory) {
+    if (icon) {
+      icon.textContent = 'dark_mode';
+      icon.classList.remove('text-[#e2bd82]');
+      icon.classList.add('text-[#0E1628]');
+    }
+    if (label) label.textContent = 'AZUL';
+    localStorage.setItem('ketoret_theme', 'ivory');
+    window.showToast('Tema Marfil Cálido activado ✨');
+  } else {
+    if (icon) {
+      icon.textContent = 'light_mode';
+      icon.classList.add('text-[#e2bd82]');
+      icon.classList.remove('text-[#0E1628]');
+    }
+    if (label) label.textContent = 'MARFIL';
+    localStorage.setItem('ketoret_theme', 'navy');
+    window.showToast('Tema Azul Medianoche activado 🌙');
+  }
+};
 
 window.scrollToTop = function() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
